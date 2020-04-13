@@ -96,6 +96,8 @@ export default function Home() {
   // const history = useHistory();
   const [value, setValue] = useState(0);
   const [modeId, setModeId] = useState('typescript');
+  const [theme, setTheme] = useState<'vs' | 'vs-dark' | 'hc-black'>('vs');
+
   const pages: Record<number, string> = {
     0: '/',
     1: '/examples',
@@ -107,6 +109,10 @@ export default function Home() {
   // };
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setModeId(event.target.value as string);
+  };
+
+  const handleChangeTheme = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setTheme(event.target.value as 'vs' | 'vs-dark' | 'hc-black');
   };
 
   const monacoEditorRef = createRef<MonacoEditorRef>();
@@ -130,6 +136,23 @@ export default function Home() {
       monacoEditor.setModelLanguage(modeId);
     }
   }, [modeId]);
+
+  useEffect(() => {
+    if (monacoEditorRef.current) {
+      const monacoEditor = monacoEditorRef.current;
+      monacoEditor.setTheme(theme);
+    }
+  }, [theme]);
+
+  const THEME = {
+    'Visual Studio': 'vs',
+    'Visual Studio Dark': 'vs-dark',
+    'High Contrast Dark': 'hc-black',
+  };
+  // function changeTheme(theme) {
+  //   var newTheme = theme === 1 ? 'vs-dark' : theme === 0 ? 'vs' : 'hc-black';
+  //   monaco.editor.setTheme(newTheme);
+  // }
 
   const menuItems = () => {
     const modesIds = monaco.languages.getLanguages().map((lang) => lang.id);
@@ -183,18 +206,16 @@ export default function Home() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={modeId}
-            onChange={handleChange}
+            value={theme}
+            onChange={handleChangeTheme}
           >
-            {menuItems()}
+            <MenuItem value={'vs'}>Visual Studio</MenuItem>
+            <MenuItem value={'vs-dark'}>Visual Studio Dark</MenuItem>
+            <MenuItem value={'hc-black'}>High Contrast Dark</MenuItem>
           </Select>
         </FormControl>
         <div style={{ width: '100%', height: '80vh' }}>
-          <MonacoEditor
-            ref={monacoEditorRef}
-            // value={SAMPLES[modeId]}
-            // language={modeId}
-          />
+          <MonacoEditor ref={monacoEditorRef} />
         </div>
       </main>
     </div>

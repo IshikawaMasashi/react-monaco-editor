@@ -38,6 +38,7 @@ type Props = {
 export type MonacoEditorRef = {
   setValue: (newValue: string) => void;
   setModelLanguage: (languageId: string) => void;
+  setTheme: (newTheme: 'vs' | 'vs-dark' | 'hc-black') => void;
 };
 // コンポーネントを定義
 // export default function Monaco(props: Props) {
@@ -172,6 +173,9 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
     },
     setModelLanguage(languageId: string) {
       monaco.editor.setModelLanguage(modelRef.current, languageId);
+    },
+    setTheme(newTheme: 'vs' | 'vs-dark' | 'hc-black') {
+      monaco.editor.setTheme(newTheme);
     },
   }));
 
