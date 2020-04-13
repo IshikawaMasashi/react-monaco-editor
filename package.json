@@ -1,6 +1,6 @@
 {
   "name": "@ishikawa_masashi/react-monaco-editor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/index.js",
   "typings": "./lib/index.d.ts",
   "description": "Monaco Editor for React",
@@ -58,7 +58,7 @@
     "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-prettier": "^3.1.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.2.0",
     "jest": "^25.3.0",
@@ -89,7 +89,6 @@
     "@ishikawa_masashi/react-hooks": "^1.0.1",
     "classnames": "^2.2.6",
     "monaco-editor": "^0.20.0",
-    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

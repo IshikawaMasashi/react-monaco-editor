@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { QuickBASIC } from '../extensions/quickbasic/languageConfiguration';
 import {
   useResizeObserver,
@@ -9,25 +8,6 @@ import {
   useMount,
 } from '@ishikawa_masashi/react-hooks';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-
-// スタイルを定義
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      padding: theme.spacing(6),
-    },
-    title: {
-      borderBottom: `2px solid ${theme.palette.primary.main}`,
-    },
-    paper: {
-      padding: 18,
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-    container: { width: '100%', height: '100%' },
-  })
-);
 
 // props の型を定義
 type Props = {
@@ -46,9 +26,6 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
   // const { value = '', language = '' } = props;
 
   // const model = monaco.editor.createModel(value);
-
-  // ここでクラス名を取得
-  const classes = useStyles({});
 
   const modelRef = useRef<monaco.editor.ITextModel>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -179,8 +156,9 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
     },
   }));
 
+  const containerStyle: React.CSSProperties = { width: '100%', height: '100%' };
   return (
-    <div className={classes.container} ref={containerRef}>
+    <div style={containerStyle} ref={containerRef}>
       <div ref={editorContainerRef}></div>
     </div>
   );
