@@ -158,13 +158,9 @@ export default function Home() {
     const modesIds = monaco.languages.getLanguages().map((lang) => lang.id);
     modesIds.sort();
 
-    return modesIds.map((modeId) => {
-      // return {
-      //   modeId: modeId,
-      //   sampleURL: 'index/samples/sample.' + modeId + '.txt',
-      // };
-      return <MenuItem value={modeId}>{modeId}</MenuItem>;
-    });
+    return modesIds.map((modeId) => (
+      <MenuItem value={modeId}>{modeId}</MenuItem>
+    ));
   };
 
   return (
@@ -173,7 +169,7 @@ export default function Home() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Quick Basic
+            React Monaco Editor
           </Typography>
           <div style={{ width: '64px' }}></div>
           {/* <Tabs
