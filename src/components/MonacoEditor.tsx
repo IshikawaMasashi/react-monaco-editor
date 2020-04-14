@@ -17,6 +17,7 @@ type Props = {
 
 export type MonacoEditorRef = {
   setValue: (newValue: string) => void;
+  getValue: () => string;
   setModelLanguage: (languageId: string) => void;
   setTheme: (newTheme: 'vs' | 'vs-dark' | 'hc-black') => void;
 };
@@ -147,6 +148,12 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
       if (editorRef.current) {
         editorRef.current.setValue(newValue);
       }
+    },
+    getValue() {
+      if (editorRef.current) {
+        return editorRef.current.getValue();
+      }
+      return '';
     },
     setModelLanguage(languageId: string) {
       monaco.editor.setModelLanguage(modelRef.current, languageId);

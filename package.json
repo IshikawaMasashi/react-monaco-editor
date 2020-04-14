@@ -1,6 +1,6 @@
 {
   "name": "@ishikawa_masashi/react-monaco-editor",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "main": "lib/index.js",
   "typings": "./lib/index.d.ts",
   "description": "Monaco Editor for React",
@@ -20,8 +20,7 @@
     "clean:umd": "rimraf dist/*",
     "sass": "node-sass scss/main.scss dist/ReactContexify.css",
     "postsass": "postcss dist/ReactContexify.css --use autoprefixer -m -o dist/ReactContexify.css",
-    "style": "npm run sass && cssnano dist/ReactContexify.css dist/ReactContexify.min.css --no-zindex --no-reduceIdents",
-    "publish": "yarn build && npm publish --access=public"
+    "style": "npm run sass && cssnano dist/ReactContexify.css dist/ReactContexify.min.css --no-zindex --no-reduceIdents"
   },
   "repository": {
     "type": "git",
