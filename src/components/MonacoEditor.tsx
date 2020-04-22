@@ -26,8 +26,6 @@ export type MonacoEditorRef = {
 const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
   // const { value = '', language = '' } = props;
 
-  // const model = monaco.editor.createModel(value);
-
   const modelRef = useRef<monaco.editor.ITextModel>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
@@ -61,45 +59,12 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
     }
   }, [width, height]);
 
-  // useEffect(() => {
-  //   if (modelRef.current) {
-  //     monaco.editor.setModelLanguage(modelRef.current, language);
-  //   }
-  // }, [language]);
-
-  // useEffect(() => {
-  //   if (modelRef.current) {
-  //     modelRef.current.setValue(value);
-  //   }
-  // }, [value]);
-
   const createEditor = () => {
     if (!editorContainerRef.current) {
       return;
     }
 
-    // modelRef.current = monaco.editor.createModel(value);
-    // monaco.editor.setModelLanguage(modelRef.current, language);
-
     modelRef.current = monaco.editor.createModel('');
-
-    // const options = Object.assign(
-    //   {
-    //     theme: "vs-dark",
-    //     minimap: {
-    //       enabled: false
-    //     },
-    //     fontWeight: "bold",
-    //     renderLineHighlight: "none",
-    //     language: "quickbasic"
-    //   },
-    //   {}
-    // );
-    // if (editorContainerRef.current.lastChild) {
-    //   editorContainerRef.current.removeChild(
-    //     editorContainerRef.current.lastChild
-    //   );
-    // }
 
     editorRef.current = monaco.editor.create(editorContainerRef.current, {
       theme: 'vs-dark',

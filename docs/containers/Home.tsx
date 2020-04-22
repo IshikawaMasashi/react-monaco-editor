@@ -13,14 +13,12 @@ import {
 
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { makeStyles } from '@material-ui/core/styles';
-import About from '../components/About';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import Examples from './Examples';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -65,32 +63,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  toolbar: theme.mixins.toolbar as any,
+  toolbar: theme.mixins.toolbar,
 }));
 
-function TabPanel(props: any) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </Typography>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 export default function Home() {
   const classes = useStyles();
   // const history = useHistory();
@@ -98,10 +73,6 @@ export default function Home() {
   const [modeId, setModeId] = useState('typescript');
   const [theme, setTheme] = useState<'vs' | 'vs-dark' | 'hc-black'>('vs');
 
-  const pages: Record<number, string> = {
-    0: '/',
-    1: '/examples',
-  };
   // const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
   //   setValue(newValue);
 
@@ -172,15 +143,6 @@ export default function Home() {
             React Monaco Editor
           </Typography>
           <div style={{ width: '64px' }}></div>
-          {/* <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="simple tabs example"
-          >
-            <Tab label="Home" {...a11yProps(0)} />
-            <Tab label="Examples" {...a11yProps(1)} />
-            <Tab label="Documentation" {...a11yProps(2)} />
-          </Tabs> */}
         </Toolbar>
       </AppBar>
 
@@ -210,7 +172,7 @@ export default function Home() {
             <MenuItem value={'hc-black'}>High Contrast Dark</MenuItem>
           </Select>
         </FormControl>
-        <div style={{ width: '100%', height: '80vh' }}>
+        <div style={{ width: '100%', height: 'calc(100vh - 180px)' }}>
           <MonacoEditor ref={monacoEditorRef} />
         </div>
       </main>
