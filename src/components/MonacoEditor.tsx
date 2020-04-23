@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
 import { QuickBASIC } from '../extensions/quickbasic/languageConfiguration';
+
 import {
   useResizeObserver,
   useUnmount,
@@ -21,6 +22,11 @@ export type MonacoEditorRef = {
   setModelLanguage: (languageId: string) => void;
   setTheme: (newTheme: 'vs' | 'vs-dark' | 'hc-black') => void;
 };
+
+export function createModel(value = '') {
+  return monaco.editor.createModel(value);
+}
+
 // コンポーネントを定義
 // export default function Monaco(props: Props) {
 const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
