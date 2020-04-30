@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, createRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import {
   BrowserRouter as Router,
@@ -30,7 +30,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuItem from '@material-ui/core/MenuItem';
-import MonacoEditor, { MonacoEditorRef } from '../../src';
+import MonacoEditor, { MonacoEditorRef, createModel } from '../../src';
 import Select from '@material-ui/core/Select';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -72,7 +72,7 @@ export default function Home() {
   const [value, setValue] = useState(0);
   const [modeId, setModeId] = useState('typescript');
   const [theme, setTheme] = useState<'vs' | 'vs-dark' | 'hc-black'>('vs');
-
+  const modelRef = useRef(createModel());
   // const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
   //   setValue(newValue);
 
@@ -86,7 +86,7 @@ export default function Home() {
     setTheme(event.target.value as 'vs' | 'vs-dark' | 'hc-black');
   };
 
-  const monacoEditorRef = createRef<MonacoEditorRef>();
+  const monacoEditorRef = useRef<MonacoEditorRef>();
 
   useEffect(() => {
     return () => {};
@@ -173,7 +173,7 @@ export default function Home() {
           </Select>
         </FormControl>
         <div style={{ width: '100%', height: 'calc(100vh - 180px)' }}>
-          <MonacoEditor ref={monacoEditorRef} />
+          <MonacoEditor ref={monacoEditorRef} model={modelRef.current} />
         </div>
       </main>
     </div>

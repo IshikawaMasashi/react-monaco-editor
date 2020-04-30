@@ -16,7 +16,7 @@ interface MonarchLanguageConfiguration
   floatsuffix: RegExp;
 }
 
-let completionItems: monaco.languages.CompletionItem[] = null;
+let completionItems: monaco.languages.CompletionItem[]; // = null;
 function getCompletionItems(): monaco.languages.CompletionItem[] {
   // const keyword = monaco.languages.CompletionItemKind.Keyword;
   if (completionItems) {

@@ -8,12 +8,18 @@ import {
   useUnmount,
   useMount,
 } from '@ishikawa_masashi/react-hooks';
+
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { IPosition } from 'monaco-editor';
+
+type Editor = monaco.editor.IStandaloneCodeEditor;
 
 // props の型を定義
 type Props = {
-  // value?: string;
-  // language?: string;
+  model: monaco.editor.ITextModel;
+  onMouseDown?: (/*editor: Editor*/) => void;
+  onDidChangeCursorPosition?: (e: IPosition) => void;
+  onDidFocusEditorText?: () => void;
 };
 
 export type MonacoEditorRef = {
@@ -28,20 +34,73 @@ export function createModel(value = '') {
 }
 
 // コンポーネントを定義
-// export default function Monaco(props: Props) {
 const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
-  // const { value = '', language = '' } = props;
+  const {
+    model,
+    onMouseDown = () => {},
+    onDidChangeCursorPosition = (e: IPosition) => {},
+    onDidFocusEditorText = () => {},
+  } = props;
 
-  const modelRef = useRef<monaco.editor.ITextModel>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
 
   const [width, height] = useResizeObserver(containerRef);
 
+  const onMouseDownRef = useRef<(e: monaco.editor.IEditorMouseEvent) => void>(
+    (e) => {
+      /* no-op */
+    }
+  );
+
+  const onDidChangeCursorPositionRef = useRef<(e: IPosition) => void>((e) => {
+    /* no-op */
+  });
+
+  const onDidFocusEditorTextRef = useRef<() => void>(() => {
+    /* no-op */
+  });
+
+  useEffect(() => {
+    onMouseDownRef.current = (e) => {
+      // const type = e.target.type;
+      // if (
+      //   type === MouseTargetType.GUTTER_LINE_NUMBERS ||
+      //   type === MouseTargetType.GUTTER_GLYPH_MARGIN ||
+      //   type === MouseTargetType.GUTTER_LINE_DECORATIONS
+      // ) {
+      //   onGutterMouseDown(e.target.position.lineNumber);
+      // }
+      if (editorRef.current) {
+        onMouseDown(/*editorRef.current*/);
+      }
+    };
+  }, [onMouseDown]);
+
+  useEffect(() => {
+    onDidChangeCursorPositionRef.current = (e) => {
+      if (editorRef.current) {
+        onDidChangeCursorPosition(e);
+      }
+    };
+  }, [onDidChangeCursorPosition]);
+
+  useEffect(() => {
+    onDidFocusEditorTextRef.current = () => {
+      if (editorRef.current) {
+        onDidFocusEditorText();
+      }
+    };
+  }, [onDidFocusEditorText]);
+
   const resize = () => {
     // console.log('resize!');
-    if (editorRef.current && containerRef.current) {
+    if (
+      editorRef.current &&
+      containerRef.current &&
+      editorContainerRef.current
+    ) {
       const { clientWidth, clientHeight } = containerRef.current;
 
       const width = clientWidth + 'px';
@@ -65,12 +124,16 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
     }
   }, [width, height]);
 
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.setModel(model);
+    }
+  }, [model]);
+
   const createEditor = () => {
     if (!editorContainerRef.current) {
       return;
     }
-
-    modelRef.current = monaco.editor.createModel('');
 
     editorRef.current = monaco.editor.create(editorContainerRef.current, {
       theme: 'vs-dark',
@@ -83,12 +146,24 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
       // automaticLayout: true,
     });
 
-    editorRef.current.setModel(modelRef.current);
+    editorRef.current.setModel(model);
+
+    editorRef.current.onMouseDown((e) => {
+      onMouseDownRef.current(e);
+    });
+
+    editorRef.current.onDidChangeCursorPosition((e) => {
+      onDidChangeCursorPositionRef.current(e.position);
+    });
 
     editorRef.current.onDidChangeModelContent((e) => {
       if (e.isFlush) {
         return;
       }
+    });
+
+    editorRef.current.onDidFocusEditorText(() => {
+      onDidFocusEditorTextRef.current();
     });
 
     // editorRef.current.onKeyUp((e) => {});
@@ -127,7 +202,7 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
       return '';
     },
     setModelLanguage(languageId: string) {
-      monaco.editor.setModelLanguage(modelRef.current, languageId);
+      monaco.editor.setModelLanguage(model, languageId);
     },
     setTheme(newTheme: 'vs' | 'vs-dark' | 'hc-black') {
       monaco.editor.setTheme(newTheme);

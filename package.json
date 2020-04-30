@@ -1,6 +1,6 @@
 {
   "name": "@ishikawa_masashi/react-monaco-editor",
-  "version": "1.0.8",
+  "version": "1.1.4",
   "main": "lib/index.js",
   "typings": "./lib/index.d.ts",
   "description": "Monaco Editor for React",

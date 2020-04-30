@@ -1,5 +1,5 @@
 ﻿import MonacoEditor from './components/MonacoEditor';
-import { MonacoEditorRef } from './components/MonacoEditor';
+import { MonacoEditorRef, createModel } from './components/MonacoEditor';
 
-export { MonacoEditorRef };
+export { MonacoEditorRef, createModel };
 export default MonacoEditor;
