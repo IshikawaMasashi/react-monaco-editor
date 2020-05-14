@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { join } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const docsBasedir = join(__dirname, 'docs');
 const devBasedir = join(__dirname, 'dev');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
@@ -8,7 +9,7 @@ module.exports = {
   mode: 'development',
   entry: join(devBasedir, 'index.tsx'),
   output: {
-    path: devBasedir,
+    path: docsBasedir,
     filename: 'ReactMonacoEditor.js',
   },
   resolve: {
