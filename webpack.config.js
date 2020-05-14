@@ -6,9 +6,9 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     path: __dirname + '/dist',
-    filename: 'QuickBASIC.js', //  filename: "bundle.js"
+    filename: 'ReactMonacoEditor.js', //  filename: "bundle.js"
     libraryTarget: 'umd',
-    library: 'QuickBASIC', 
+    library: 'ReactMonacoEditor',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],

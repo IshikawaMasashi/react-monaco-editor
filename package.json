@@ -1,6 +1,6 @@
 {
   "name": "@ishikawa_masashi/react-monaco-editor",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "lib/index.js",
   "typings": "./lib/index.d.ts",
   "description": "Monaco Editor for React",
@@ -24,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IshikawaMasashi/QuickBASIC.git"
+    "url": "git+https://github.com/IshikawaMasashi/react-monaco-editor.git"
   },
-  "author": "Ishikawa Masashi <IshikawaMasashi@hotmail.com> (https://github.com/IshikawaMasashi)",
+  "author": "Ishikawa Masashi <Ishikawa_Masashi@hotmail.com> (https://github.com/IshikawaMasashi)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IshikawaMasashi/QuickBASIC/issues"
+    "url": "https://github.com/IshikawaMasashi/react-monaco-editor/issues"
   },
   "devDependencies": {
     "@material-ui/core": "^4.9.14",
