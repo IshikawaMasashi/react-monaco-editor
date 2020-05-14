@@ -86,7 +86,7 @@ export default function Home() {
     setTheme(event.target.value as 'vs' | 'vs-dark' | 'hc-black');
   };
 
-  const monacoEditorRef = useRef<MonacoEditorRef>();
+  const monacoEditorRef = useRef<MonacoEditorRef>(null);
 
   useEffect(() => {
     return () => {};

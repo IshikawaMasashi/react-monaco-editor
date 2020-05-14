@@ -14,6 +14,8 @@ import { IPosition } from 'monaco-editor';
 
 type Editor = monaco.editor.IStandaloneCodeEditor;
 
+type Theme = 'vs' | 'vs-dark' | 'hc-black';
+
 // props の型を定義
 type Props = {
   model: monaco.editor.ITextModel;
@@ -26,7 +28,7 @@ export type MonacoEditorRef = {
   setValue: (newValue: string) => void;
   getValue: () => string;
   setModelLanguage: (languageId: string) => void;
-  setTheme: (newTheme: 'vs' | 'vs-dark' | 'hc-black') => void;
+  setTheme: (newTheme: Theme) => void;
 };
 
 export function createModel(value = '') {
@@ -204,7 +206,7 @@ const MonacoEditor = forwardRef<MonacoEditorRef, Props>((props, ref) => {
     setModelLanguage(languageId: string) {
       monaco.editor.setModelLanguage(model, languageId);
     },
-    setTheme(newTheme: 'vs' | 'vs-dark' | 'hc-black') {
+    setTheme(newTheme: Theme) {
       monaco.editor.setTheme(newTheme);
     },
   }));

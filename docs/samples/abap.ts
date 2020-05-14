@@ -1,4 +1,4 @@
-REPORT zrosetta_base64_encode_data.
+const abap = `REPORT zrosetta_base64_encode_data.
 
 DATA: li_client  TYPE REF TO if_http_client,
       lv_encoded TYPE string,
@@ -26,4 +26,6 @@ WHILE strlen( lv_encoded ) > 100.
   WRITE: / lv_encoded(100).
   lv_encoded = lv_encoded+100.
 ENDWHILE.
-WRITE: / lv_encoded.
+WRITE: / lv_encoded.`;
+
+export default abap;
