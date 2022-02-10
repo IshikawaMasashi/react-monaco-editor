@@ -65,7 +65,7 @@
     "jest": "^26.0.1",
     "jest-cli": "^26.0.1",
     "monaco-editor-webpack-plugin": "^1.9.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "postcss": "^7.0.30",
     "postcss-cli": "^7.1.1",
     "prettier": "^2.0.5",
